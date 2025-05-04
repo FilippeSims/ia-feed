@@ -4,6 +4,7 @@ import { fileURLToPath, pathToFileURL } from 'url';
 import { readdirSync } from 'fs';
 import logger from 'morgan';
 import cors from 'cors';
+import session from 'express-session';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -21,12 +22,21 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'change_this_secret',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas via arquivo Router
 import indexRouter from './routes/index.js';
+import adminRouter from './routes/admin.js';
 app.use('/', indexRouter);
+app.use('/admin', adminRouter);
 
 // Carregamento dinâmico de controladores
 const loadControllers = async (app) => {

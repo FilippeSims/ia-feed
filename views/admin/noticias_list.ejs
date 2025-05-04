@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Notícias</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Gerenciar Notícias</h1>
+    <p class="header-links">
+      <a href="/admin/noticias/new">Nova Notícia</a> |
+      <a href="/admin/logout">Logout</a>
+    </p>
+    <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Imagem</th>
+        <th>Link</th>
+        <th>Título</th>
+        <th>Cliques</th>
+        <th>Data de Postagem</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% noticias.forEach(function(noticia) { %>
+        <tr>
+          <td><%= noticia.id %></td>
+          <td><%= noticia.imagem %></td>
+          <td><%= noticia.link %></td>
+          <td><%= noticia.titulo %></td>
+          <td><%= noticia.clicks %></td>
+          <td><%= noticia.data_postagem %></td>
+          <td class="actions">
+            <a href="/admin/noticias/<%= noticia.id %>/edit">Editar</a>
+            <form method="post" action="/admin/noticias/<%= noticia.id %>/delete" onsubmit="return confirm('Confirmar exclusão?');">
+              <button type="submit">Excluir</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  </div>
+</body>
+</html>

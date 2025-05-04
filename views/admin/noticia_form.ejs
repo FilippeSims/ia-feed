@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= noticia.id ? 'Editar' : 'Nova' %> Notícia</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <div class="container">
+    <h1><%= noticia.id ? 'Editar' : 'Nova' %> Notícia</h1>
+    <form method="post" action="<%= noticia.id ? '/admin/noticias/' + noticia.id + '/edit' : '/admin/noticias/new' %>">
+    <div>
+      <label>Imagem:</label>
+      <input type="text" name="imagem" value="<%= noticia.imagem || '' %>" required>
+    </div>
+    <div>
+      <label>Link:</label>
+      <input type="text" name="link" value="<%= noticia.link || '' %>" required>
+    </div>
+    <div>
+      <label>Título:</label>
+      <input type="text" name="titulo" value="<%= noticia.titulo || '' %>" required>
+    </div>
+    <div>
+      <label>Cliques:</label>
+      <input type="number" name="clicks" value="<%= noticia.clicks != null ? noticia.clicks : '' %>" required>
+    </div>
+    <div>
+      <label>Data de Postagem:</label>
+      <input type="date" name="data_postagem" value="<%= noticia.data_postagem || '' %>" required>
+    </div>
+    <button type="submit"><%= noticia.id ? 'Atualizar' : 'Criar' %></button>
+  </form>
+    <p><a href="/admin/noticias">Voltar</a></p>
+  </div>
+</body>
+</html>

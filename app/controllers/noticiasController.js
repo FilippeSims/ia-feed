@@ -70,4 +70,18 @@ export default function(app) {
       return res.status(500).send('Erro no servidor');
     }
   });
+  // API de deletar notícia pelo ID
+  app.delete('/noticias/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await dbRun('DELETE FROM noticias WHERE id = ?', [id]);
+      if (result.changes === 0) {
+        return res.status(404).send('Notícia não encontrada');
+      }
+      return res.status(204).end();
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('Erro no servidor');
+    }
+  });
 }
